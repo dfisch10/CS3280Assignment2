@@ -11,15 +11,23 @@ EXAMPLES:
 First Name Sort Order Example:
 
 Cameron Harp
+
 Joe Dirt
+
 Justin Jensen
+
 Keri Holley
+
 Matt Kimber
 
 Last Name Sort Order Example:
 
 Dirt, Joe
+
 Harp, Cameron
+
 Holley, Keri
+
 Jensen,Justin
+
 Kimber, Matt
