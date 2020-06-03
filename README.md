@@ -20,7 +20,7 @@ Keri Holley
 
 Matt Kimber
 
-***************Last Name Sort Order Example**************
+***************Last Name Sort Order Example*************
 
 Dirt, Joe
 
