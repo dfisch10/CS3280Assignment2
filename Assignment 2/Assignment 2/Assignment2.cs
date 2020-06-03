@@ -21,10 +21,7 @@ namespace Assignment_2
                 NameInputFormatChecking(namesList);
             }
 
-            Console.WriteLine("Would you like to sort the list of names by 'first' or 'last' name?");
-
             SortInputDisplayer(namesList);
-
         }
 
         /// <summary>
@@ -35,22 +32,31 @@ namespace Assignment_2
         /// <param name="namesList"> List of names User inputted</param>
         private static void SortInputDisplayer(List<string> namesList)
         {
+            Console.WriteLine("Would you like to sort the list of names by 'first' or 'last' name?");
+            
             String input = Console.ReadLine();
 
-            if (input == "first")
+            while (true)
             {
-                sortFirstName(namesList);
-            }
+                if (input == "first")
+                {
+                    sortFirstName(namesList);
+                    break;
+                }
 
-            else if (input == "last")
-            {
-                sortLastName(namesList);
-
-            }
-
-            else
-            {
-                Console.WriteLine("The only valid inputs are 'first' and 'last', please try again.");
+                else if (input == "last")
+                {
+                    sortLastName(namesList);
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("The only valid inputs are 'first' and 'last', please try again.");
+                    Console.ResetColor();
+                    SortInputDisplayer(namesList);
+                    break;
+                }
             }
         }
 
@@ -67,17 +73,23 @@ namespace Assignment_2
 
             if (namesList.Contains(name.ToLower()))
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("You may not have duplicate names, please choose a new name.");
+                Console.ResetColor();
             }
 
             else if (String.IsNullOrEmpty(name))
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Names can not be null/empty. Please try again.");
+                Console.ResetColor();
             }
 
             else if (!name.Contains(" "))
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("You must include a space between your first and last names.");
+                Console.ResetColor();
             }
 
             else
@@ -94,6 +106,7 @@ namespace Assignment_2
         private static void sortLastName(List<string> namesList)
         {
             var lastFirst = new List<String>();
+
             foreach (String names in namesList)
             {
                 var splitNames = names.Split(' ');
@@ -108,6 +121,7 @@ namespace Assignment_2
             }
 
             lastFirst.Sort();
+
             foreach (String names in lastFirst)
             {
                 Console.WriteLine(names);
