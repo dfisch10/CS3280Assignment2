@@ -6,9 +6,9 @@ Assignment #2 for CS-3280 required us to create a console application that reque
 2) If the user inputs a bad value (not first or last), display an error message and telling them that it is not a valid input and re-prompt the user for a sort order.
 3) Once the order is selected output on the console the list of names in the alphabet order specified.
 
-EXAMPLES:
+*********************************************************EXAMPLES*********************************************************
 
-First Name Sort Order Example:
+***************First Name Sort Order Example*************
 
 Cameron Harp
 
@@ -20,7 +20,7 @@ Keri Holley
 
 Matt Kimber
 
-Last Name Sort Order Example:
+***************Last Name Sort Order Example**************
 
 Dirt, Joe
 
