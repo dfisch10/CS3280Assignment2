@@ -8,7 +8,7 @@ Assignment #2 for CS-3280 required us to create a console application that reque
 
 *********************************************************EXAMPLES*********************************************************
 
-***************First Name Sort Order Example*************
+*************First Name Sort Order Example*************
 
 Cameron Harp
 
@@ -20,7 +20,7 @@ Keri Holley
 
 Matt Kimber
 
-***************Last Name Sort Order Example*************
+*************Last Name Sort Order Example*************
 
 Dirt, Joe
 
