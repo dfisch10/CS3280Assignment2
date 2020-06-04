@@ -16,12 +16,14 @@ namespace Assignment_2
         {
             var namesList = new List<String>();
 
-            while (namesList.Count < 5)
+            while (namesList.Count < 5 || namesList is null)
             {
-                NameInputFormatChecking(namesList);
+                collectInputNames(namesList);
             }
 
-            SortInputDisplayer(namesList);
+            Console.WriteLine("Would you like to sort the list of names by 'first' or 'last' name?");
+
+            sortInputDisplayer(namesList);
         }
 
         /// <summary>
@@ -30,31 +32,31 @@ namespace Assignment_2
         /// Otherwise it throws a message saying only 'last' and 'first' are accepted inputs.
         /// </summary>
         /// <param name="namesList"> List of names User inputted</param>
-        private static void SortInputDisplayer(List<string> namesList)
+        private static void sortInputDisplayer(List<string> namesList)
         {
-            Console.WriteLine("Would you like to sort the list of names by 'first' or 'last' name?");
-            
-            String input = Console.ReadLine();
+            var input = Console.ReadLine();
 
             while (true)
             {
                 if (input == "first")
                 {
                     sortFirstName(namesList);
+
                     break;
                 }
 
                 else if (input == "last")
                 {
                     sortLastName(namesList);
+
                     break;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The only valid inputs are 'first' and 'last', please try again.");
-                    Console.ResetColor();
-                    SortInputDisplayer(namesList);
+                    errorMessageDisplay("The only valid inputs are 'first' and 'last', please try again.");
+
+                    sortInputDisplayer(namesList);
+
                     break;
                 }
             }
@@ -65,37 +67,38 @@ namespace Assignment_2
         /// and that there is a space between the first and last name.
         /// </summary>
         /// <param name="namesList">List of names User inputted</param>
-        private static void NameInputFormatChecking(List<string> namesList)
+        private static void collectInputNames(List<string> namesList)
         {
             Console.Write("Please enter a first and last name(with a space in between):");
 
-            String name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             if (namesList.Contains(name.ToLower()))
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("You may not have duplicate names, please choose a new name.");
-                Console.ResetColor();
+                errorMessageDisplay("You may not have duplicate names, please choose a new name.");
             }
 
             else if (String.IsNullOrEmpty(name))
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Names can not be null/empty. Please try again.");
-                Console.ResetColor();
+                errorMessageDisplay("Names can not be null/empty. Please try again.");
             }
 
             else if (!name.Contains(" "))
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("You must include a space between your first and last names.");
-                Console.ResetColor();
+                errorMessageDisplay("You must include a space between your first and last names.");
             }
 
             else
             {
                 namesList.Add(name.ToLower());
             }
+        }
+
+        private static void errorMessageDisplay(string errorMessage)
+        { 
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(errorMessage);
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -107,14 +110,11 @@ namespace Assignment_2
         {
             var lastFirst = new List<String>();
 
-            foreach (String names in namesList)
+            foreach (var names in namesList)
             {
                 var splitNames = names.Split(' ');
-
                 var firstName = splitNames[0];
-
                 var lastName = splitNames[1];
-
                 var newList = lastName + ", " + firstName;
 
                 lastFirst.Add(newList);
@@ -122,7 +122,7 @@ namespace Assignment_2
 
             lastFirst.Sort();
 
-            foreach (String names in lastFirst)
+            foreach (var names in lastFirst)
             {
                 Console.WriteLine(names);
             }
@@ -136,7 +136,7 @@ namespace Assignment_2
         {
             namesList.Sort();
 
-            foreach (String names in namesList)
+            foreach (var names in namesList)
             {
                 Console.WriteLine(names);
             }
