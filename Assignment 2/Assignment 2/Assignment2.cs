@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Assignment_2
@@ -16,13 +17,13 @@ namespace Assignment_2
         {
             var namesList = new List<String>();
 
-            while (namesList.Count < 5 || namesList is null)
+            while (namesList.Count < 5)
             {
                 collectInputNames(namesList);
             }
-
+           
             Console.WriteLine("Would you like to sort the list of names by 'first' or 'last' name?");
-
+            
             sortInputDisplayer(namesList);
         }
 
@@ -33,33 +34,42 @@ namespace Assignment_2
         /// </summary>
         /// <param name="namesList"> List of names User inputted</param>
         private static void sortInputDisplayer(List<string> namesList)
-        {
-            var input = Console.ReadLine();
-
-            while (true)
+        {  
+            if (namesList is null)
             {
-                if (input == "first")
-                {
-                    sortFirstName(namesList);
-
-                    break;
-                }
-
-                else if (input == "last")
-                {
-                    sortLastName(namesList);
-
-                    break;
-                }
-                else
-                {
-                    errorMessageDisplay("The only valid inputs are 'first' and 'last', please try again.");
-
-                    sortInputDisplayer(namesList);
-
-                    break;
-                }
+                errorMessageDisplay("There are no names to sort, please start over, and add names to your list.");
             }
+
+            else
+            {
+                var input = Console.ReadLine();
+
+                while (true)
+                {
+                    if (input == "first")
+                    {
+                        sortFirstName(namesList);
+
+                        break;
+                    }
+
+                    else if (input == "last")
+                    {
+                        sortLastName(namesList);
+
+                        break;
+                    }
+
+                    else
+                    {
+                        errorMessageDisplay("The only valid inputs are 'first' and 'last', please try again.");
+
+                        sortInputDisplayer(namesList);
+
+                        break;
+                    }
+                }
+            }     
         }
 
         /// <summary>
@@ -73,25 +83,35 @@ namespace Assignment_2
 
             var name = Console.ReadLine();
 
-            if (namesList.Contains(name.ToLower()))
+            if (namesList != null)
             {
-                errorMessageDisplay("You may not have duplicate names, please choose a new name.");
-            }
+                if (String.IsNullOrEmpty(name))
+                {
+                    errorMessageDisplay("Names can not be null/empty. Please try again.");
 
-            else if (String.IsNullOrEmpty(name))
-            {
-                errorMessageDisplay("Names can not be null/empty. Please try again.");
-            }
+                }
 
-            else if (!name.Contains(" "))
-            {
-                errorMessageDisplay("You must include a space between your first and last names.");
-            }
+                else if (namesList.Contains(name.ToLower()))
+                {
+                    errorMessageDisplay("You may not have duplicate names, please choose a new name.");
+                }
 
-            else
-            {
-                namesList.Add(name.ToLower());
+                else if (!name.Contains(" "))
+                {
+                    errorMessageDisplay("You must include a space between your first and last names.");
+                }
+
+                else
+                {
+                    namesList.Add(name.ToLower());
+                }
             }
+            
+            else if(namesList is null)
+            {
+                errorMessageDisplay("You have not added any names, please add names to your list.");
+                collectInputNames(namesList);
+            }  
         }
 
         private static void errorMessageDisplay(string errorMessage)
@@ -110,22 +130,31 @@ namespace Assignment_2
         {
             var lastFirst = new List<String>();
 
-            foreach (var names in namesList)
+            if(namesList is null)
             {
-                var splitNames = names.Split(' ');
-                var firstName = splitNames[0];
-                var lastName = splitNames[1];
-                var newList = lastName + ", " + firstName;
-
-                lastFirst.Add(newList);
+                errorMessageDisplay("You have no names to sort, please start over, and add names to your list.");
             }
 
-            lastFirst.Sort();
-
-            foreach (var names in lastFirst)
+            else
             {
-                Console.WriteLine(names);
+                foreach (var names in namesList)
+                {
+                    var splitNames = names.Split(' ');
+                    var firstName = splitNames[0];
+                    var lastName = splitNames[1];
+                    var newList = lastName + ", " + firstName;
+
+                    lastFirst.Add(newList);
+                }
+
+                lastFirst.Sort();
+
+                foreach (var names in lastFirst)
+                {
+                    Console.WriteLine(names);
+                }
             }
+           
         }
 
         /// <summary>
@@ -134,12 +163,18 @@ namespace Assignment_2
         /// <param name="namesList">List of names User inputted</param>
         private static void sortFirstName(List<string> namesList)
         {
-            namesList.Sort();
-
-            foreach (var names in namesList)
+            if (namesList is null)
             {
-                Console.WriteLine(names);
+                errorMessageDisplay("You have no names to sort, please start over, and add names to your list.");
             }
+            else
+            {
+                foreach (var names in namesList)
+                {
+                    Console.WriteLine(names);
+                }
+            }
+            
         }
     }
 }
